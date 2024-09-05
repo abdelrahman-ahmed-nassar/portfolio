@@ -43,7 +43,7 @@ const Footer = () => {
 
               <li>
                 <a
-                  href="t.me/abdelrahman_ahmed_nassar"
+                  href="https://t.me/abdelrahman_ahmed_nassar"
                   rel="noreferrer"
                   title="Abdelrahman on Telegram"
                   target="_blank"
