@@ -118,15 +118,7 @@ const Projects = () => {
       codeLink: "https://github.com/abdelrahman-ahmed-nassar/leon/",
       img: leon,
       tags: ["HTML & CSS", "ALL"],
-    },
-    {
-      title: "CV website",
-      description: "A simple website cv with colorful design",
-      projectLink: "https://abdelrahman-ahmed-nassar.github.io/CV-website/",
-      codeLink: "https://github.com/abdelrahman-ahmed-nassar/CV-website/",
-      img: cvWebsite,
-      tags: ["HTML & CSS", "ALL"],
-    },
+    }
   ];
 
   const [filterWork, setFilterWork] = useState(works);

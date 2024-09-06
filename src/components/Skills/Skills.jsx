@@ -16,19 +16,12 @@ import css from "../../assets/skills/css.png";
 import javascript from "../../assets/skills/javascript.png";
 import node from "../../assets/skills/node.png";
 import nextJs from "../../assets/skills/nextjs.png";
-import firebase from "../../assets/skills/firebase.png";
 import aws from "../../assets/skills/aws.png";
 
-import { motion, useSpring } from "framer-motion";
 
 import "./Skills.scss";
 
-let viewportWidth = window.innerWidth;
 
-const transition = {
-  duration: 0.3,
-  type: useSpring,
-};
 
 const Skills = () => {
   const certificates = [
@@ -113,9 +106,7 @@ const Skills = () => {
   ];
 
   return (
-    <motion.section
-      whileInView={{ transform: "translateY(0%)", opacity: [0, 1] }}
-      transition={transition}
+    <section
       className="skills"
     >
       <SectionTitle>skills & certificates</SectionTitle>
@@ -222,7 +213,7 @@ const Skills = () => {
           })}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

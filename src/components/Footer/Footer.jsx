@@ -1,11 +1,10 @@
 import "./Footer.scss";
-import footerLogo from "../../assets/logos/footer-logo.svg";
+import footerLogo from "../../assets/logos/footer-logo1.svg";
 import {
-  BsFacebook,
   BsGithub,
   BsLinkedin,
-  BsFillArrowUpCircleFill,
   BsTelegram,
+  BsFillArrowUpCircleFill,
 } from "react-icons/bs";
 
 const Footer = () => {
@@ -57,7 +56,7 @@ const Footer = () => {
               <BsFillArrowUpCircleFill className="fa fa-arrow-up" />
             </a>
 
-            <p className="copy-right">{`made with love by abdelrahman Nassar @${new Date().getFullYear()} all rights reserved`}</p>
+            <p className="copy-right">{`made with 💖 by abdelrahman Nassar @${new Date().getFullYear()} all rights reserved`}</p>
           </div>
         </div>
       </div>
