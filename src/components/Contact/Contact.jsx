@@ -60,6 +60,8 @@ const Contact = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  console.log(1 + 2); 
+
   return (
     <>
       <SectionTitle>Contact me</SectionTitle>

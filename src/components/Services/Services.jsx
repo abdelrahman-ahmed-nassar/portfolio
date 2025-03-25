@@ -91,6 +91,7 @@ const Services = () => {
     </section>
   );
 };
+console.log(1);
 
 export default Services;
 

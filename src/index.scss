@@ -105,7 +105,8 @@ a {
 /* scroll bar  */
 /**************/
 body::-webkit-scrollbar {
-  width: 8px;
+  width: 0.0003px;
+  position: absolute;
 }
 
 body::-webkit-scrollbar-thumb {

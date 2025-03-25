@@ -1,7 +1,7 @@
 import classes from "./About.module.scss";
 import SectionTitle from "../UI/SectionTitle";
 
-import pic from "../../assets/images/special.png";
+import pic from "../../assets/images/special.jpg";
 
 const About = () => {
   return (
