@@ -130,6 +130,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
+  place-items: center;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -137,6 +138,7 @@
 }
 
 .featured-item {
+  max-width: 500px;
   position: relative;
   background: rgba(17, 25, 40, 0.7);
   border-radius: 16px;

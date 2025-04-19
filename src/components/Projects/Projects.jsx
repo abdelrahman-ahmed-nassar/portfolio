@@ -1,7 +1,7 @@
 import "./Projects.scss";
 import SectionTitle from "../UI/SectionTitle";
 import { Fragment, useState, useEffect, useRef } from "react";
-import { AiFillEye, AiFillGithub } from "react-icons/ai";
+import { AiFillGithub } from "react-icons/ai";
 import { FiExternalLink, FiFolder, FiTag } from "react-icons/fi";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
 
@@ -12,24 +12,18 @@ import pigGame from "../../assets/projects-images/Pig-Game.png";
 import bankist from "../../assets/projects-images/Bankist.png";
 import bankistWebsite from "../../assets/projects-images/bankist-website.png";
 import mapty from "../../assets/projects-images/mapty.png";
-import kasper from "../../assets/projects-images/Kasper.png";
 import passwords from "../../assets/projects-images/passwords.png";
-import leon from "../../assets/projects-images/Leon.png";
 import productivity from "../../assets/projects-images/productivity-zone.png";
 import lms from "../../assets/projects-images/lms-project.png";
-import sst from "../../assets/projects-images/sst.png";
 import weather from "../../assets/projects-images/weather-app.png";
 import chat from "../../assets/projects-images/chat.png";
-import quotes from "../../assets/projects-images/quotes.png";
 import expenses from "../../assets/projects-images/expenses.png";
-import cvWebsite from "../../assets/projects-images/CV-website.png";
+import electronicProject from "../../assets/projects-images/elec-projects.png";
+
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [animateCard, setAnimateCard] = useState({
-    opacity: 1,
-  });
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
+
   const [selectedProject, setSelectedProject] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
   const projectsRef = useRef(null);
@@ -39,18 +33,33 @@ const Projects = () => {
     {
       id: 1,
       title: "Learning Management System",
-      description: "A comprehensive LMS platform for an English teacher with course management and student interaction features.",
-      projectLink: "https://abdelrahman-forkify.netlify.app/",
+      description:
+        "A comprehensive LMS platform for an English teacher with course management and student interaction features.",
+      projectLink: "https://mohammed-hekal.vercel.app/",
       codeLink: "https://github.com/abdelrahman-ahmed-nassar/",
       img: lms,
-      tags: ["React", "ALL"],
-      year: "2023",
+      tags: ["NextJs", "ALL"],
+      year: "2025",
       featured: true,
     },
     {
       id: 2,
+      title: "Electronic Projects Showcase",
+      description:
+        "A portfolio website showcasing innovative electronic projects by engineering students at Al-Azhar University, featuring circuit designs, simulations, and practical implementations.",
+      projectLink: "https://al-azhar-electronics.netlify.app/",
+      codeLink: "https://github.com/abdelrahman-ahmed-nassar/Electronics-projects-showcase",
+      img: electronicProject,
+      tags: ["React", "ALL"],
+      year: "2023",
+      featured: true,
+    },
+
+    {
+      id: 3,
       title: "Forkify",
-      description: "A recipe finder application that allows users to search over 1,000,000 recipes with ingredient adjustments and favorites saving.",
+      description:
+        "A recipe finder application that allows users to search over 1,000,000 recipes with ingredient adjustments and favorites saving.",
       projectLink: "https://abdelrahman-forkify.netlify.app/",
       codeLink: "https://github.com/abdelrahman-ahmed-nassar/forkify/",
       img: forkify,
@@ -59,40 +68,47 @@ const Projects = () => {
       featured: true,
     },
     {
-      id: 3,
+      id: 4,
       title: "Omnifood",
-      description: "A modern restaurant landing page with responsive design, animations, and subscription features.",
+      description:
+        "A modern restaurant landing page with responsive design, animations, and subscription features.",
       projectLink: "https://abdelrahman-ahmed-nassar.github.io/omnifood/",
       codeLink: "https://github.com/abdelrahman-ahmed-nassar/omnifood/",
       img: omnifood,
       tags: ["HTML & CSS", "ALL"],
       year: "2021",
-      featured: true,
+      featured: false,
     },
     {
-      id: 4,
+      id: 5,
       title: "Productivity Zone",
-      description: "A suite of productivity tools including task management, pomodoro timer, and note-taking features.",
-      projectLink: "https://abdelrahman-ahmed-nassar.github.io/productivity-zone/",
+      description:
+        "A suite of productivity tools including task management, pomodoro timer, and note-taking features.",
+      projectLink:
+        "https://abdelrahman-ahmed-nassar.github.io/productivity-zone/",
       codeLink: "https://github.com/abdelrahman-ahmed-nassar/productivity-zone",
       img: productivity,
       tags: ["React", "ALL"],
       year: "2022",
     },
     {
-      id: 5,
+      id: 6,
       title: "Password Manager",
-      description: "Secure password management app with encryption and easy access to stored credentials.",
-      projectLink: "https://abdelrahman-ahmed-nassar.github.io/passwords-manager-app/",
-      codeLink: "https://github.com/abdelrahman-ahmed-nassar/passwords-manager-app/",
+      description:
+        "Secure password management app with encryption and easy access to stored credentials.",
+      projectLink:
+        "https://abdelrahman-ahmed-nassar.github.io/passwords-manager-app/",
+      codeLink:
+        "https://github.com/abdelrahman-ahmed-nassar/passwords-manager-app/",
       img: passwords,
       tags: ["React", "ALL"],
       year: "2022",
     },
     {
-      id: 6,
+      id: 7,
       title: "Bankist App",
-      description: "Banking application simulation with transfer features and transaction history.",
+      description:
+        "Banking application simulation with transfer features and transaction history.",
       projectLink: "https://abdelrahman-ahmed-nassar.github.io/bankist/",
       codeLink: "https://github.com/abdelrahman-ahmed-nassar/bankist/",
       img: bankist,
@@ -100,9 +116,10 @@ const Projects = () => {
       year: "2021",
     },
     {
-      id: 7,
+      id: 8,
       title: "Mapty",
-      description: "Workout tracking application with map integration for visualizing exercise locations.",
+      description:
+        "Workout tracking application with map integration for visualizing exercise locations.",
       projectLink: "https://abdelrahman-ahmed-nassar.github.io/mapty/",
       codeLink: "https://github.com/abdelrahman-ahmed-nassar/mapty/",
       img: mapty,
@@ -110,17 +127,19 @@ const Projects = () => {
       year: "2021",
     },
     {
-      id: 8,
+      id: 9,
       title: "Bankist Website",
-      description: "Modern banking website with animations and interactive features.",
-      projectLink: "https://abdelrahman-ahmed-nassar.github.io/bankist-website/",
+      description:
+        "Modern banking website with animations and interactive features.",
+      projectLink:
+        "https://abdelrahman-ahmed-nassar.github.io/bankist-website/",
       codeLink: "https://github.com/abdelrahman-ahmed-nassar/bankist-website/",
       img: bankistWebsite,
       tags: ["JavaScript", "ALL"],
       year: "2021",
     },
     {
-      id: 9,
+      id: 10,
       title: "Pig Game",
       description: "Interactive dice game for two players with score tracking.",
       projectLink: "https://abdelrahman-ahmed-nassar.github.io/pig-game/",
@@ -130,9 +149,10 @@ const Projects = () => {
       year: "2020",
     },
     {
-      id: 10,
+      id: 11,
       title: "Weather App",
-      description: "Real-time weather forecast application with location detection.",
+      description:
+        "Real-time weather forecast application with location detection.",
       projectLink: "#",
       codeLink: "#",
       img: weather,
@@ -140,9 +160,10 @@ const Projects = () => {
       year: "2022",
     },
     {
-      id: 11,
+      id: 12,
       title: "Expense Tracker",
-      description: "Financial management tool for tracking personal expenses and budgeting.",
+      description:
+        "Financial management tool for tracking personal expenses and budgeting.",
       projectLink: "#",
       codeLink: "#",
       img: expenses,
@@ -150,9 +171,10 @@ const Projects = () => {
       year: "2023",
     },
     {
-      id: 12,
+      id: 13,
       title: "Chat Application",
-      description: "Real-time messaging platform with user authentication and chat rooms.",
+      description:
+        "Real-time messaging platform with user authentication and chat rooms.",
       projectLink: "#",
       codeLink: "#",
       img: chat,
@@ -165,7 +187,6 @@ const Projects = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 768);
       checkScroll();
     };
 
@@ -201,12 +222,9 @@ const Projects = () => {
 
   const handleWorkFilter = (item) => {
     setActiveFilter(item);
-    setAnimateCard({ opacity: 0 });
     setSelectedProject(null);
 
     setTimeout(() => {
-      setAnimateCard({ opacity: 1 });
-
       if (item === "All") setFilterWork(works);
       else {
         setFilterWork(works.filter((work) => work.tags.includes(item)));
@@ -237,15 +255,19 @@ const Projects = () => {
           {/* Filter tabs */}
           <div className="filter-container">
             <div className="filter-tabs">
-              {["All", "React", "JavaScript", "HTML & CSS"].map((item, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleWorkFilter(item)}
-                  className={`filter-tab ${activeFilter === item ? "active" : ""}`}
-                >
-                  {item}
-                </button>
-              ))}
+              {["All", "NextJs", "React", "JavaScript"].map(
+                (item, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleWorkFilter(item)}
+                    className={`filter-tab ${
+                      activeFilter === item ? "active" : ""
+                    }`}
+                  >
+                    {item}
+                  </button>
+                )
+              )}
             </div>
           </div>
 
@@ -258,7 +280,7 @@ const Projects = () => {
               <div className="featured-grid">
                 {filterWork
                   .filter((work) => work.featured)
-                  .map((work, index) => (
+                  .map((work) => (
                     <div
                       className="featured-item"
                       key={work.id}
@@ -327,7 +349,7 @@ const Projects = () => {
               <div className="projects-grid" ref={projectsRef}>
                 {filterWork
                   .filter((work) => !work.featured)
-                  .map((work, index) => (
+                  .map((work) => (
                     <div
                       className="project-card"
                       key={work.id}
