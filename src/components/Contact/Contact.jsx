@@ -7,7 +7,6 @@ import emailjs from "@emailjs/browser";
 import emailLogo from "../../assets/logos/email.png";
 import mobile from "../../assets/logos/mobile.png";
 
-
 const Contact = () => {
   const form = useRef();
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -21,8 +20,6 @@ const Contact = () => {
 
   const sendEmail = (e) => {
     e.preventDefault();
-
-    setIsLLoadingResults(true);
 
     setIsLLoadingResults(true);
 
@@ -59,8 +56,6 @@ const Contact = () => {
 
     setFormData({ ...formData, [name]: value });
   };
-
-  console.log(1 + 2); 
 
   return (
     <>
