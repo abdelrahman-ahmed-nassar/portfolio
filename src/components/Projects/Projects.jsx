@@ -15,11 +15,7 @@ import mapty from "../../assets/projects-images/mapty.png";
 import passwords from "../../assets/projects-images/passwords.png";
 import productivity from "../../assets/projects-images/productivity-zone.png";
 import lms from "../../assets/projects-images/lms-project.png";
-import weather from "../../assets/projects-images/weather-app.png";
-import chat from "../../assets/projects-images/chat.png";
-import expenses from "../../assets/projects-images/expenses.png";
 import electronicProject from "../../assets/projects-images/elec-projects.png";
-
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -48,13 +44,13 @@ const Projects = () => {
       description:
         "A portfolio website showcasing innovative electronic projects by engineering students at Al-Azhar University, featuring circuit designs, simulations, and practical implementations.",
       projectLink: "https://al-azhar-electronics.netlify.app/",
-      codeLink: "https://github.com/abdelrahman-ahmed-nassar/Electronics-projects-showcase",
+      codeLink:
+        "https://github.com/abdelrahman-ahmed-nassar/Electronics-projects-showcase",
       img: electronicProject,
       tags: ["React", "ALL"],
       year: "2023",
       featured: true,
     },
-
     {
       id: 3,
       title: "Forkify",
@@ -90,6 +86,7 @@ const Projects = () => {
       img: productivity,
       tags: ["React", "ALL"],
       year: "2022",
+      featured: true,
     },
     {
       id: 6,
@@ -103,6 +100,7 @@ const Projects = () => {
       img: passwords,
       tags: ["React", "ALL"],
       year: "2022",
+      featured: false,
     },
     {
       id: 7,
@@ -114,6 +112,7 @@ const Projects = () => {
       img: bankist,
       tags: ["JavaScript", "ALL"],
       year: "2021",
+      featured: false,
     },
     {
       id: 8,
@@ -125,6 +124,7 @@ const Projects = () => {
       img: mapty,
       tags: ["JavaScript", "ALL"],
       year: "2021",
+      featured: false,
     },
     {
       id: 9,
@@ -137,6 +137,7 @@ const Projects = () => {
       img: bankistWebsite,
       tags: ["JavaScript", "ALL"],
       year: "2021",
+      featured: false,
     },
     {
       id: 10,
@@ -147,39 +148,7 @@ const Projects = () => {
       img: pigGame,
       tags: ["JavaScript", "ALL"],
       year: "2020",
-    },
-    {
-      id: 11,
-      title: "Weather App",
-      description:
-        "Real-time weather forecast application with location detection.",
-      projectLink: "#",
-      codeLink: "#",
-      img: weather,
-      tags: ["React", "ALL"],
-      year: "2022",
-    },
-    {
-      id: 12,
-      title: "Expense Tracker",
-      description:
-        "Financial management tool for tracking personal expenses and budgeting.",
-      projectLink: "#",
-      codeLink: "#",
-      img: expenses,
-      tags: ["React", "ALL"],
-      year: "2023",
-    },
-    {
-      id: 13,
-      title: "Chat Application",
-      description:
-        "Real-time messaging platform with user authentication and chat rooms.",
-      projectLink: "#",
-      codeLink: "#",
-      img: chat,
-      tags: ["React", "ALL"],
-      year: "2023",
+      featured: false,
     },
   ];
 
@@ -255,19 +224,17 @@ const Projects = () => {
           {/* Filter tabs */}
           <div className="filter-container">
             <div className="filter-tabs">
-              {["All", "NextJs", "React", "JavaScript"].map(
-                (item, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleWorkFilter(item)}
-                    className={`filter-tab ${
-                      activeFilter === item ? "active" : ""
-                    }`}
-                  >
-                    {item}
-                  </button>
-                )
-              )}
+              {["All", "NextJs", "React", "JS", "HTML & CSS"].map((item, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleWorkFilter(item)}
+                  className={`filter-tab ${
+                    activeFilter === item ? "active" : ""
+                  }`}
+                >
+                  {item}
+                </button>
+              ))}
             </div>
           </div>
 
