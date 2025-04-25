@@ -43,7 +43,7 @@ const Projects = () => {
       title: "Electronic Projects Showcase",
       description:
         "A portfolio website showcasing innovative electronic projects by engineering students at Al-Azhar University, featuring circuit designs, simulations, and practical implementations.",
-      projectLink: "https://al-azhar-electronics.netlify.app/",
+      projectLink: "https://al-azhar-electronics.vercel.app/",
       codeLink:
         "https://github.com/abdelrahman-ahmed-nassar/Electronics-projects-showcase",
       img: electronicProject,
