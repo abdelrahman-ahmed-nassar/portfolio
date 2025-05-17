@@ -1,158 +1,142 @@
 import "./Projects.scss";
 import SectionTitle from "../UI/SectionTitle";
-import { Fragment, useState, useEffect, useRef } from "react";
+import { Fragment, useState, useEffect, useRef, useMemo } from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { FiExternalLink, FiFolder, FiTag } from "react-icons/fi";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
+import { FaPlay } from "react-icons/fa";
+import PropTypes from "prop-types";
+import ReactMarkdown from "react-markdown";
 
-// Import project images
-import omnifood from "../../assets/projects-images/Omnifood.png";
-import forkify from "../../assets/projects-images/forkify.png";
-import pigGame from "../../assets/projects-images/Pig-Game.png";
-import bankist from "../../assets/projects-images/Bankist.png";
-import bankistWebsite from "../../assets/projects-images/bankist-website.png";
-import mapty from "../../assets/projects-images/mapty.png";
-import passwords from "../../assets/projects-images/passwords.png";
-import productivity from "../../assets/projects-images/productivity-zone.png";
-import lms from "../../assets/projects-images/lms-project.png";
-import electronicProject from "../../assets/projects-images/elec-projects.png";
+// Import projects data
+import { projectsData } from "../../data/projects";
+
+// Function to extract YouTube video ID from URL
+const getYouTubeVideoId = (url) => {
+  if (!url || typeof url !== "string") return null;
+
+  // Remove the @ prefix if present
+  const cleanUrl = url.startsWith("@") ? url.substring(1) : url;
+
+  // Handle different YouTube URL formats
+  const regExp =
+    /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  const shortRegExp = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(.+)$/;
+
+  const match = cleanUrl.match(regExp);
+  if (match && match[7].length === 11) {
+    return match[7];
+  }
+
+  // Try to extract from shorts URL or other formats
+  const shortMatch = cleanUrl.match(shortRegExp);
+  if (shortMatch) {
+    const path = shortMatch[4];
+    if (path.includes("shorts/")) {
+      return path.split("shorts/")[1].split("?")[0];
+    }
+  }
+
+  return null;
+};
+
+// Component for YouTube video embed
+const YouTubeEmbed = ({ url, title }) => {
+  const videoId = getYouTubeVideoId(url);
+
+  if (!videoId) return <div>Invalid YouTube URL</div>;
+
+  return (
+    <div className="youtube-container">
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}`}
+        title={title}
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
+    </div>
+  );
+};
+
+YouTubeEmbed.propTypes = {
+  url: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};
+
+// Component to display an image with optional video link
+const MediaDisplay = ({ img, video, title, className = "", onClick }) => {
+  const hasVideo = !!video;
+
+  return (
+    <div className={`media-container ${className}`} onClick={onClick}>
+      <img src={img} alt={title} />
+      {hasVideo && (
+        <div className="video-overlay">
+          <div className="play-button">
+            <FaPlay />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+MediaDisplay.propTypes = {
+  img: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+  video: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  onClick: PropTypes.func,
+};
 
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("All");
-
   const [selectedProject, setSelectedProject] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
   const projectsRef = useRef(null);
   const [showScrollButtons, setShowScrollButtons] = useState(false);
+  const [isPlayingVideo, setIsPlayingVideo] = useState(false);
 
-  const works = [
-    {
-      id: 1,
-      title: "Learning Management System",
-      description:
-        "A comprehensive LMS platform for an English teacher with course management and student interaction features.",
-      projectLink: "https://mohammed-hekal.vercel.app/",
-      codeLink: "https://github.com/abdelrahman-ahmed-nassar/",
-      img: lms,
-      tags: ["NextJs", "ALL"],
-      year: "2025",
-      featured: true,
-    },
-    {
-      id: 2,
-      title: "Electronic Projects Showcase",
-      description:
-        "A portfolio website showcasing innovative electronic projects by engineering students at Al-Azhar University, featuring circuit designs, simulations, and practical implementations.",
-      projectLink: "https://al-azhar-electronics.vercel.app/",
-      codeLink:
-        "https://github.com/abdelrahman-ahmed-nassar/Electronics-projects-showcase",
-      img: electronicProject,
-      tags: ["React", "ALL"],
-      year: "2023",
-      featured: true,
-    },
-    {
-      id: 3,
-      title: "Forkify",
-      description:
-        "A recipe finder application that allows users to search over 1,000,000 recipes with ingredient adjustments and favorites saving.",
-      projectLink: "https://abdelrahman-forkify.netlify.app/",
-      codeLink: "https://github.com/abdelrahman-ahmed-nassar/forkify/",
-      img: forkify,
-      tags: ["JavaScript", "ALL"],
-      year: "2022",
-      featured: true,
-    },
-    {
-      id: 4,
-      title: "Omnifood",
-      description:
-        "A modern restaurant landing page with responsive design, animations, and subscription features.",
-      projectLink: "https://abdelrahman-ahmed-nassar.github.io/omnifood/",
-      codeLink: "https://github.com/abdelrahman-ahmed-nassar/omnifood/",
-      img: omnifood,
-      tags: ["HTML & CSS", "ALL"],
-      year: "2021",
-      featured: false,
-    },
-    {
-      id: 5,
-      title: "Productivity Zone",
-      description:
-        "A suite of productivity tools including task management, pomodoro timer, and note-taking features.",
-      projectLink:
-        "https://abdelrahman-ahmed-nassar.github.io/productivity-zone/",
-      codeLink: "https://github.com/abdelrahman-ahmed-nassar/productivity-zone",
-      img: productivity,
-      tags: ["React", "ALL"],
-      year: "2022",
-      featured: true,
-    },
-    {
-      id: 6,
-      title: "Password Manager",
-      description:
-        "Secure password management app with encryption and easy access to stored credentials.",
-      projectLink:
-        "https://abdelrahman-ahmed-nassar.github.io/passwords-manager-app/",
-      codeLink:
-        "https://github.com/abdelrahman-ahmed-nassar/passwords-manager-app/",
-      img: passwords,
-      tags: ["React", "ALL"],
-      year: "2022",
-      featured: false,
-    },
-    {
-      id: 7,
-      title: "Bankist App",
-      description:
-        "Banking application simulation with transfer features and transaction history.",
-      projectLink: "https://abdelrahman-ahmed-nassar.github.io/bankist/",
-      codeLink: "https://github.com/abdelrahman-ahmed-nassar/bankist/",
-      img: bankist,
-      tags: ["JavaScript", "ALL"],
-      year: "2021",
-      featured: false,
-    },
-    {
-      id: 8,
-      title: "Mapty",
-      description:
-        "Workout tracking application with map integration for visualizing exercise locations.",
-      projectLink: "https://abdelrahman-ahmed-nassar.github.io/mapty/",
-      codeLink: "https://github.com/abdelrahman-ahmed-nassar/mapty/",
-      img: mapty,
-      tags: ["JavaScript", "ALL"],
-      year: "2021",
-      featured: false,
-    },
-    {
-      id: 9,
-      title: "Bankist Website",
-      description:
-        "Modern banking website with animations and interactive features.",
-      projectLink:
-        "https://abdelrahman-ahmed-nassar.github.io/bankist-website/",
-      codeLink: "https://github.com/abdelrahman-ahmed-nassar/bankist-website/",
-      img: bankistWebsite,
-      tags: ["JavaScript", "ALL"],
-      year: "2021",
-      featured: false,
-    },
-    {
-      id: 10,
-      title: "Pig Game",
-      description: "Interactive dice game for two players with score tracking.",
-      projectLink: "https://abdelrahman-ahmed-nassar.github.io/pig-game/",
-      codeLink: "https://github.com/abdelrahman-ahmed-nassar/pig-game/",
-      img: pigGame,
-      tags: ["JavaScript", "ALL"],
-      year: "2020",
-      featured: false,
-    },
-  ];
+  // Get the projects data from the imported data
+  const works = useMemo(() => projectsData, []);
 
   const [filterWork, setFilterWork] = useState(works);
+
+  // Extract unique tags from projects and sort by number of featured projects
+  const uniqueTags = useMemo(() => {
+    // Get all unique tags
+    const allTags = works.flatMap((work) => work.tags);
+    const uniqueSet = new Set(allTags);
+    const uniqueTagsArray = Array.from(uniqueSet);
+
+    // Count featured projects for each tag
+    const tagCounts = uniqueTagsArray.map((tag) => {
+      const featuredCount = works.filter(
+        (work) => work.featured && work.tags.includes(tag)
+      ).length;
+
+      return {
+        tag,
+        featuredCount,
+        totalCount: works.filter((work) => work.tags.includes(tag)).length,
+      };
+    });
+
+    // Sort by featured count (descending), then by total count if featured counts are equal
+    tagCounts.sort((a, b) => {
+      if (b.featuredCount !== a.featuredCount) {
+        return b.featuredCount - a.featuredCount;
+      }
+      return b.totalCount - a.totalCount;
+    });
+
+    // Extract just the tag names in the sorted order
+    const sortedTags = tagCounts.map((item) => item.tag);
+
+    // Add 'All' as the first item
+    return ["All", ...sortedTags];
+  }, [works]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -194,9 +178,16 @@ const Projects = () => {
     setSelectedProject(null);
 
     setTimeout(() => {
-      if (item === "All") setFilterWork(works);
-      else {
-        setFilterWork(works.filter((work) => work.tags.includes(item)));
+      // Show all projects when 'All' is selected
+      if (item.toLowerCase() === "all") {
+        setFilterWork(works);
+      } else {
+        // Only show projects with the selected tag
+        setFilterWork(
+          works.filter((work) =>
+            work.tags.some((tag) => tag.toLowerCase() === item.toLowerCase())
+          )
+        );
       }
     }, 500);
   };
@@ -207,12 +198,18 @@ const Projects = () => {
 
   const openProjectDetail = (project) => {
     setSelectedProject(project);
+    setIsPlayingVideo(false);
     document.body.style.overflow = "hidden";
   };
 
   const closeProjectDetail = () => {
     setSelectedProject(null);
+    setIsPlayingVideo(false);
     document.body.style.overflow = "auto";
+  };
+
+  const toggleVideoPlayback = () => {
+    setIsPlayingVideo((prevState) => !prevState);
   };
 
   return (
@@ -224,7 +221,7 @@ const Projects = () => {
           {/* Filter tabs */}
           <div className="filter-container">
             <div className="filter-tabs">
-              {["All", "NextJs", "React", "JS", "HTML & CSS"].map((item, index) => (
+              {uniqueTags.map((item, index) => (
                 <button
                   key={index}
                   onClick={() => handleWorkFilter(item)}
@@ -247,14 +244,18 @@ const Projects = () => {
               <div className="featured-grid">
                 {filterWork
                   .filter((work) => work.featured)
-                  .map((work) => (
+                  .map((work, index) => (
                     <div
                       className="featured-item"
-                      key={work.id}
+                      key={index}
                       onClick={() => openProjectDetail(work)}
                     >
                       <div className="featured-image">
-                        <img src={work.img} alt={work.title} />
+                        <MediaDisplay
+                          img={work.img}
+                          video={work.video}
+                          title={work.title}
+                        />
                         <div className="featured-overlay">
                           <div className="view-project">
                             <span>View Project</span>
@@ -267,24 +268,40 @@ const Projects = () => {
                           <span>{work.tags[0]}</span>
                         </div>
                         <h3>{work.title}</h3>
-                        <p>{work.description}</p>
+                        <p>{work.summary}</p>
                         <div className="featured-links">
-                          <a
-                            href={work.projectLink}
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <FiExternalLink /> Live Demo
-                          </a>
-                          <a
-                            href={work.codeLink}
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <AiFillGithub /> Source Code
-                          </a>
+                          {work.projectLink && (
+                            <a
+                              href={work.projectLink}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <FiExternalLink /> Live Demo
+                            </a>
+                          )}
+                          {work.codeLink && (
+                            <a
+                              href={work.codeLink}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <AiFillGithub /> Source Code
+                            </a>
+                          )}
+                          {!work.projectLink && work.video && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openProjectDetail(work);
+                                setTimeout(() => toggleVideoPlayback(), 100);
+                              }}
+                              className="video-link"
+                            >
+                              <FaPlay /> Watch Demo
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -316,12 +333,12 @@ const Projects = () => {
               <div className="projects-grid" ref={projectsRef}>
                 {filterWork
                   .filter((work) => !work.featured)
-                  .map((work) => (
+                  .map((work, index) => (
                     <div
                       className="project-card"
-                      key={work.id}
-                      onMouseEnter={() => handleCardHover(work.id, true)}
-                      onMouseLeave={() => handleCardHover(work.id, false)}
+                      key={index}
+                      onMouseEnter={() => handleCardHover(index, true)}
+                      onMouseLeave={() => handleCardHover(index, false)}
                       onClick={() => openProjectDetail(work)}
                     >
                       <div className="card-header">
@@ -329,27 +346,43 @@ const Projects = () => {
                           <FiFolder />
                         </div>
                         <div className="card-links">
-                          <a
-                            href={work.projectLink}
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <FiExternalLink />
-                          </a>
-                          <a
-                            href={work.codeLink}
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <AiFillGithub />
-                          </a>
+                          {work.projectLink && (
+                            <a
+                              href={work.projectLink}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <FiExternalLink />
+                            </a>
+                          )}
+                          {work.codeLink && (
+                            <a
+                              href={work.codeLink}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <AiFillGithub />
+                            </a>
+                          )}
+                          {!work.projectLink && work.video && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openProjectDetail(work);
+                                setTimeout(() => toggleVideoPlayback(), 100);
+                              }}
+                              className="video-icon"
+                            >
+                              <FaPlay />
+                            </button>
+                          )}
                         </div>
                       </div>
                       <div className="card-content">
                         <h3>{work.title}</h3>
-                        <p>{work.description}</p>
+                        <p>{work.summary}</p>
                       </div>
                       <div className="card-footer">
                         <div className="card-tags">
@@ -359,9 +392,13 @@ const Projects = () => {
                       </div>
                       <div
                         className="card-hover-image"
-                        style={{ opacity: hoveredCard === work.id ? 0.15 : 0 }}
+                        style={{ opacity: hoveredCard === index ? 0.15 : 0 }}
                       >
-                        <img src={work.img} alt={work.title} />
+                        <MediaDisplay
+                          img={work.img}
+                          video={work.video}
+                          title={work.title}
+                        />
                       </div>
                     </div>
                   ))}
@@ -390,7 +427,21 @@ const Projects = () => {
 
               <div className="modal-header">
                 <div className="modal-thumbnail">
-                  <img src={selectedProject.img} alt={selectedProject.title} />
+                  {isPlayingVideo && selectedProject.video ? (
+                    <YouTubeEmbed
+                      url={selectedProject.video}
+                      title={selectedProject.title}
+                    />
+                  ) : (
+                    <MediaDisplay
+                      img={selectedProject.img}
+                      video={selectedProject.video}
+                      title={selectedProject.title}
+                      onClick={
+                        selectedProject.video ? toggleVideoPlayback : undefined
+                      }
+                    />
+                  )}
                 </div>
                 <div className="modal-title">
                   <h2>{selectedProject.title}</h2>
@@ -401,10 +452,8 @@ const Projects = () => {
                 </div>
               </div>
 
-              <div className="modal-body">
-                <p>{selectedProject.description}</p>
-
-                <div className="modal-actions">
+              <div className="modal-actions">
+                {selectedProject.projectLink && (
                   <a
                     href={selectedProject.projectLink}
                     target="_blank"
@@ -413,6 +462,8 @@ const Projects = () => {
                   >
                     <FiExternalLink /> Live Demo
                   </a>
+                )}
+                {selectedProject.codeLink && (
                   <a
                     href={selectedProject.codeLink}
                     target="_blank"
@@ -421,6 +472,23 @@ const Projects = () => {
                   >
                     <AiFillGithub /> View Code
                   </a>
+                )}
+                {!isPlayingVideo && selectedProject.video && (
+                  <button
+                    onClick={toggleVideoPlayback}
+                    className={`modal-button ${
+                      !selectedProject.projectLink ? "primary" : "video"
+                    }`}
+                  >
+                    <FaPlay /> Watch{" "}
+                    {!selectedProject.projectLink ? "Demo" : "Video"}
+                  </button>
+                )}
+              </div>
+
+              <div className="modal-body">
+                <div className="modal-description markdown-content">
+                  <ReactMarkdown>{selectedProject.description}</ReactMarkdown>
                 </div>
               </div>
             </div>

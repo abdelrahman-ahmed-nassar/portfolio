@@ -23,7 +23,7 @@ const Preloader = () => {
   useEffect(() => {
     setTimeout(() => {
       setCompleted(true);
-    }, 1500);
+    }, 1000);
   }, []);
 
   return (

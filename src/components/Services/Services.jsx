@@ -91,19 +91,5 @@ const Services = () => {
     </section>
   );
 };
-console.log(1);
 
 export default Services;
-
-/*
-
-  .front-end {
-    top: -21%;
-    left: 19.5vw; // 250px
-  }
-  .back-end {
-    top: 17.2rem;
-    left: -7rem;
-  }
-
-*/
