@@ -7,6 +7,8 @@ import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
 import { FaPlay } from "react-icons/fa";
 import PropTypes from "prop-types";
 import ReactMarkdown from "react-markdown";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 // Import projects data
 import { projectsData } from "../../data/projects";
@@ -212,6 +214,14 @@ const Projects = () => {
     setIsPlayingVideo((prevState) => !prevState);
   };
 
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100,
+    });
+  }, []);
+
   return (
     <Fragment>
       <section className="projects-section">
@@ -219,7 +229,7 @@ const Projects = () => {
 
         <div className="projects-container">
           {/* Filter tabs */}
-          <div className="filter-container">
+          <div className="filter-container" data-aos="fade-down">
             <div className="filter-tabs">
               {uniqueTags.map((item, index) => (
                 <button
@@ -228,6 +238,8 @@ const Projects = () => {
                   className={`filter-tab ${
                     activeFilter === item ? "active" : ""
                   }`}
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
                 >
                   {item}
                 </button>
@@ -236,7 +248,7 @@ const Projects = () => {
           </div>
 
           {/* Featured Projects */}
-          <div className="featured-projects">
+          <div className="featured-projects" data-aos="fade-up">
             <div className="section-subtitle">
               <span className="highlight">Featured</span> Projects
             </div>
@@ -249,6 +261,8 @@ const Projects = () => {
                       className="featured-item"
                       key={index}
                       onClick={() => openProjectDetail(work)}
+                      data-aos="fade-up"
+                      data-aos-delay={index * 200}
                     >
                       <div className="featured-image">
                         <MediaDisplay
@@ -308,7 +322,7 @@ const Projects = () => {
                   ))}
               </div>
             ) : (
-              <div className="no-projects">
+              <div className="no-projects" data-aos="fade-up">
                 <p>No featured projects in this category</p>
               </div>
             )}
@@ -316,7 +330,7 @@ const Projects = () => {
 
           {/* Other Projects */}
           {filterWork.filter((work) => !work.featured).length > 0 && (
-            <div className="other-projects">
+            <div className="other-projects" data-aos="fade-up">
               <div className="section-subtitle">
                 <span className="highlight">Other</span> Noteworthy Projects
               </div>
@@ -326,6 +340,7 @@ const Projects = () => {
                   <button
                     className="scroll-button left"
                     onClick={() => scrollProjects("left")}
+                    data-aos="fade-right"
                   >
                     <HiOutlineChevronLeft />
                   </button>
@@ -341,6 +356,8 @@ const Projects = () => {
                         onMouseEnter={() => handleCardHover(index, true)}
                         onMouseLeave={() => handleCardHover(index, false)}
                         onClick={() => openProjectDetail(work)}
+                        data-aos="fade-up"
+                        data-aos-delay={index * 100}
                       >
                         <div className="card-header">
                           <div className="folder-icon">
@@ -409,6 +426,7 @@ const Projects = () => {
                   <button
                     className="scroll-button right"
                     onClick={() => scrollProjects("right")}
+                    data-aos="fade-left"
                   >
                     <HiOutlineChevronRight />
                   </button>
@@ -422,7 +440,7 @@ const Projects = () => {
         {selectedProject && (
           <div className="project-modal">
             <div className="modal-overlay" onClick={closeProjectDetail}></div>
-            <div className="modal-content">
+            <div className="modal-content" data-aos="zoom-in">
               <button className="modal-close" onClick={closeProjectDetail}>
                 ×
               </button>

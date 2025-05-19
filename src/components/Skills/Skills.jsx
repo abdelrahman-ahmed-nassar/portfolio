@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 
 // import { Tooltip } from "react-tooltip";
 import Tippy from "@tippyjs/react";
@@ -18,12 +18,22 @@ import node from "../../assets/skills/node.png";
 import nextJs from "../../assets/skills/nextjs.png";
 import aws from "../../assets/skills/aws.png";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import "./Skills.scss";
 
 
 
 const Skills = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100,
+    });
+  }, []);
+
   const certificates = [
     {
       skill: "Programming",
@@ -113,55 +123,55 @@ const Skills = () => {
 
       <div className="skills__container">
         <div className="skills__list">
-          <div className="skills__item app__flex">
+          <div className="skills__item app__flex" data-aos="zoom-in" data-aos-delay="100">
             <div className="app__flex">
               <img src={html} alt="html" />
             </div>
             <p className="skill-name">HTML</p>
           </div>
-          <div className="skills__item app__flex">
+          <div className="skills__item app__flex" data-aos="zoom-in" data-aos-delay="200">
             <div className="app__flex">
               <img src={css} alt="css" />
             </div>
             <p className="skill-name">CSS</p>
           </div>
-          <div className="skills__item app__flex">
+          <div className="skills__item app__flex" data-aos="zoom-in" data-aos-delay="300">
             <div className="app__flex">
               <img src={sass} alt="sass" />
             </div>
             <p className="skill-name">Sass</p>
           </div>
-          <div className="skills__item app__flex">
+          <div className="skills__item app__flex" data-aos="zoom-in" data-aos-delay="400">
             <div className="app__flex">
               <img src={javascript} alt="javascript" />
             </div>
             <p className="skill-name">Javascript</p>
           </div>
-          <div className="skills__item app__flex">
+          <div className="skills__item app__flex" data-aos="zoom-in" data-aos-delay="500">
             <div className="app__flex">
               <img src={react} alt="react" />
             </div>
             <p className="skill-name">React</p>
           </div>
-          <div className="skills__item app__flex">
+          <div className="skills__item app__flex" data-aos="zoom-in" data-aos-delay="600">
             <div className="app__flex">
               <img src={redux} alt="redux" />
             </div>
             <p className="skill-name">redux</p>
           </div>
-          <div className="skills__item app__flex">
+          <div className="skills__item app__flex" data-aos="zoom-in" data-aos-delay="700">
             <div className="app__flex">
               <img src={nextJs} alt="nextJs" />
             </div>
             <p className="skill-name">NextJs</p>
           </div>
-          <div className="skills__item app__flex">
+          <div className="skills__item app__flex" data-aos="zoom-in" data-aos-delay="800">
             <div className="app__flex">
               <img src={node} alt="nodeJs" />
             </div>
             <p className="skill-name">NodeJs</p>
           </div>
-          <div className="skills__item app__flex">
+          <div className="skills__item app__flex" data-aos="zoom-in" data-aos-delay="900">
             <div className="app__flex">
               <img src={aws} alt="aws" />
             </div>
@@ -170,9 +180,14 @@ const Skills = () => {
         </div>
 
         <div className="skills-certificates">
-          {certificates.map((certificate) => {
+          {certificates.map((certificate, index) => {
             return (
-              <div key={certificate.id} className="skills-cer">
+              <div 
+                key={certificate.id} 
+                className="skills-cer"
+                data-aos="fade-left"
+                data-aos-delay={index * 100}
+              >
                 <a
                   className="skills-cer-icon"
                   target="_blank"

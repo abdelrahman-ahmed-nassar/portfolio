@@ -1,3 +1,4 @@
+import React from "react";
 import BackgroundAnimation from "../BackgroundAnimation/BackgroundAnimation";
 import { useEffect, useState } from "react";
 
@@ -87,11 +88,15 @@ const Hero = () => {
   return (
     <section className="hero" id="hero">
       <div className="hero__container">
-        <div className="hero__text-wrapper">
-          <h1 className="hero__title">
+        <div
+          className="hero__text-wrapper"
+          data-aos="fade-right"
+          data-aos-delay="200"
+        >
+          <h1 className="hero__title" data-aos="fade-up" data-aos-delay="400">
             We develop websites that ignite your business.
           </h1>
-          <div className="hero__text">
+          <div className="hero__text" data-aos="fade-up" data-aos-delay="600">
             <p>
               I'm{" "}
               <span className="blinking-cursor" aria-label={selectedSuperpower}>
@@ -100,11 +105,20 @@ const Hero = () => {
             </p>
           </div>
 
-          <a className="hero__button" href="#about">
+          <a
+            className="hero__button"
+            href="#about"
+            data-aos="fade-up"
+            data-aos-delay="800"
+          >
             Learn More
           </a>
         </div>
-        <BackgroundAnimation className="hero__bgc" />
+        <BackgroundAnimation
+          className="hero__bgc"
+          data-aos="fade-left"
+          data-aos-delay="400"
+        />
       </div>
     </section>
   );

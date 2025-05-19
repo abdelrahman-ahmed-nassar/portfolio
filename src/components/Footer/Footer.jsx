@@ -6,18 +6,37 @@ import {
   BsTelegram,
   BsFillArrowUpCircleFill,
 } from "react-icons/bs";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Footer = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100,
+    });
+  }, []);
+
   return (
     <footer id="footer">
       <div className="footer-content">
         <div className="container">
-          <div className="logo">
+          <div 
+            className="logo"
+            data-aos="zoom-in"
+            data-aos-delay="100"
+          >
             <img src={footerLogo} alt="logo" />
           </div>
 
           <div className="down-below">
-            <ul className="links">
+            <ul 
+              className="links"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
               <li>
                 <a
                   href="https://github.com/abdelrahman-ahmed-nassar/"
@@ -52,11 +71,23 @@ const Footer = () => {
               </li>
             </ul>
 
-            <a type="button" className="to-top" href="#">
+            <a 
+              type="button" 
+              className="to-top" 
+              href="#"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
               <BsFillArrowUpCircleFill className="fa fa-arrow-up" />
             </a>
 
-            <p className="copy-right">{`made with 💖 by abdelrahman Nassar @${new Date().getFullYear()} all rights reserved`}</p>
+            <p 
+              className="copy-right"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
+              {`made with 💖 by abdelrahman Nassar @${new Date().getFullYear()} all rights reserved`}
+            </p>
           </div>
         </div>
       </div>

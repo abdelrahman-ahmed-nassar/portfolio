@@ -1,8 +1,9 @@
 import "./Contact.scss";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import SectionTitle from "../UI/SectionTitle";
-
 import emailjs from "@emailjs/browser";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import emailLogo from "../../assets/logos/email.png";
 import mobile from "../../assets/logos/mobile.png";
@@ -11,6 +12,14 @@ const Contact = () => {
   const form = useRef();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoadingResults, setIsLLoadingResults] = useState(false);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100,
+    });
+  }, []);
 
   const [formData, setFormData] = useState({
     user_name: "",
@@ -62,7 +71,11 @@ const Contact = () => {
       <SectionTitle>Contact me</SectionTitle>
       <div className="contact">
         <div className="app__footer-cards">
-          <div className="app__footer-card">
+          <div 
+            className="app__footer-card"
+            data-aos="fade-right"
+            data-aos-delay="100"
+          >
             <img src={emailLogo} alt="email" />
             <a
               className="contact__email-link"
@@ -71,7 +84,11 @@ const Contact = () => {
               abdelrhman.contact@gmail.com
             </a>
           </div>
-          <div className="app__footer-card">
+          <div 
+            className="app__footer-card"
+            data-aos="fade-left"
+            data-aos-delay="200"
+          >
             <img src={mobile} alt="mobile" />
             <a href="tel:+20 1003685977">01003685977</a>
           </div>
@@ -81,6 +98,8 @@ const Contact = () => {
           ref={form}
           className="app__footer-form app__flex"
           onSubmit={sendEmail}
+          data-aos="fade-up"
+          data-aos-delay="300"
         >
           <div className="app__flex">
             <input
@@ -112,7 +131,11 @@ const Contact = () => {
             ></textarea>
           </div>
           {isSubmitted ? (
-            <p className="contact-success-message">
+            <p 
+              className="contact-success-message"
+              data-aos="zoom-in"
+              data-aos-delay="100"
+            >
               Your message has been successfully sent. I will contact you soon.
             </p>
           ) : (

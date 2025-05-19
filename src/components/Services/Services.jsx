@@ -3,22 +3,25 @@ import SectionTitle from "../UI/SectionTitle";
 import { FcAcceptDatabase } from "react-icons/fc";
 import { FcMultipleDevices } from "react-icons/fc";
 import Card from "../UI/Card";
-import { motion, useSpring } from "framer-motion";
-
-let viewportWidth = window.innerWidth;
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Services = () => {
-  const transition = {
-    duration: 1,
-    type: useSpring,
-  };
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100,
+    });
+  }, []);
 
   return (
     <section className={classes["services"]}>
       <SectionTitle>services</SectionTitle>
       <div className={classes["services__container"]}>
         <div className={classes["services__text-box"]}>
-          <p>
+          <p data-aos="fade-up" data-aos-duration="800">
             I know that good development means good business So I keen to make
             consistent, efficient and powerful full-stack websites with fully
             functional and user friendly user interface that will empower your
@@ -29,28 +32,25 @@ const Services = () => {
             target="_blank"
             rel="noreferrer"
             className={`${classes["services__button"]}`}
+            data-aos="fade-up"
+            data-aos-delay="200"
+            data-aos-duration="800"
           >
             Download CV
           </a>
         </div>
         <div className={classes["services__cards-container"]}>
-          <motion.div
-            whileInView={{ transform: "translateX(0%)", opacity: 1 }}
-            transition={transition}
-            initial={{
-              transform:
-                viewportWidth > 776 ? "translateX(-90%)" : "translateX(0)",
-              opacity: viewportWidth > 776 ? 0 : 1,
-            }}
+          <div
+            data-aos="fade-right"
+            data-aos-delay="200"
+            className={classes["back-end"]}
             style={{
               top: "17.2rem",
               left:
-                viewportWidth < 1050 && viewportWidth > 991 ? "-9rem" : "-7rem",
-              transform:
-                viewportWidth > 776 ? "translateX(-90%)" : "translateX(0)",
-              opacity: viewportWidth > 776 ? 0 : 1,
+                window.innerWidth < 1050 && window.innerWidth > 991
+                  ? "-9rem"
+                  : "-7rem",
             }}
-            className={classes["back-end"]}
           >
             <Card
               emoji={<FcAcceptDatabase fontSize="100px" />}
@@ -59,23 +59,14 @@ const Services = () => {
                 "I'am a Backend developer with a passion for building server side web applications"
               }
             />
-          </motion.div>
-          {/*  */}
-          <motion.div
-            whileInView={{ transform: "translateX(0%)", opacity: 1 }}
-            transition={transition}
-            initial={{
-              transform:
-                viewportWidth > 776 ? "translateX(100%)" : "translateX(0)",
-              opacity: viewportWidth > 776 ? 0 : 1,
-            }}
+          </div>
+          <div
+            data-aos="fade-left"
+            data-aos-delay="400"
             className={classes["front-end"]}
             style={{
               top: "-16%",
               left: "19.5vw",
-              transform:
-                viewportWidth > 776 ? "translateX(100%)" : "translateX(0)",
-              opacity: viewportWidth > 776 ? 0 : 1,
             }}
           >
             <Card
@@ -85,7 +76,7 @@ const Services = () => {
                 "I'am a frontend developer with a passion for building beautiful and functional web applications"
               }
             />
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
