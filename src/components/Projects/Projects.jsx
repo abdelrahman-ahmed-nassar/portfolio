@@ -315,105 +315,107 @@ const Projects = () => {
           </div>
 
           {/* Other Projects */}
-          <div className="other-projects">
-            <div className="section-subtitle">
-              <span className="highlight">Other</span> Noteworthy Projects
-            </div>
-
-            <div className="projects-scroll-container">
-              {showScrollButtons && (
-                <button
-                  className="scroll-button left"
-                  onClick={() => scrollProjects("left")}
-                >
-                  <HiOutlineChevronLeft />
-                </button>
-              )}
-
-              <div className="projects-grid" ref={projectsRef}>
-                {filterWork
-                  .filter((work) => !work.featured)
-                  .map((work, index) => (
-                    <div
-                      className="project-card"
-                      key={index}
-                      onMouseEnter={() => handleCardHover(index, true)}
-                      onMouseLeave={() => handleCardHover(index, false)}
-                      onClick={() => openProjectDetail(work)}
-                    >
-                      <div className="card-header">
-                        <div className="folder-icon">
-                          <FiFolder />
-                        </div>
-                        <div className="card-links">
-                          {work.projectLink && (
-                            <a
-                              href={work.projectLink}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <FiExternalLink />
-                            </a>
-                          )}
-                          {work.codeLink && (
-                            <a
-                              href={work.codeLink}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <AiFillGithub />
-                            </a>
-                          )}
-                          {!work.projectLink && work.video && (
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                openProjectDetail(work);
-                                setTimeout(() => toggleVideoPlayback(), 100);
-                              }}
-                              className="video-icon"
-                            >
-                              <FaPlay />
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                      <div className="card-content">
-                        <h3>{work.title}</h3>
-                        <p>{work.summary}</p>
-                      </div>
-                      <div className="card-footer">
-                        <div className="card-tags">
-                          <span>{work.tags[0]}</span>
-                        </div>
-                        <div className="card-year">{work.year}</div>
-                      </div>
-                      <div
-                        className="card-hover-image"
-                        style={{ opacity: hoveredCard === index ? 0.15 : 0 }}
-                      >
-                        <MediaDisplay
-                          img={work.img}
-                          video={work.video}
-                          title={work.title}
-                        />
-                      </div>
-                    </div>
-                  ))}
+          {filterWork.filter((work) => !work.featured).length > 0 && (
+            <div className="other-projects">
+              <div className="section-subtitle">
+                <span className="highlight">Other</span> Noteworthy Projects
               </div>
 
-              {showScrollButtons && (
-                <button
-                  className="scroll-button right"
-                  onClick={() => scrollProjects("right")}
-                >
-                  <HiOutlineChevronRight />
-                </button>
-              )}
+              <div className="projects-scroll-container">
+                {showScrollButtons && (
+                  <button
+                    className="scroll-button left"
+                    onClick={() => scrollProjects("left")}
+                  >
+                    <HiOutlineChevronLeft />
+                  </button>
+                )}
+
+                <div className="projects-grid" ref={projectsRef}>
+                  {filterWork
+                    .filter((work) => !work.featured)
+                    .map((work, index) => (
+                      <div
+                        className="project-card"
+                        key={index}
+                        onMouseEnter={() => handleCardHover(index, true)}
+                        onMouseLeave={() => handleCardHover(index, false)}
+                        onClick={() => openProjectDetail(work)}
+                      >
+                        <div className="card-header">
+                          <div className="folder-icon">
+                            <FiFolder />
+                          </div>
+                          <div className="card-links">
+                            {work.projectLink && (
+                              <a
+                                href={work.projectLink}
+                                target="_blank"
+                                rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <FiExternalLink />
+                              </a>
+                            )}
+                            {work.codeLink && (
+                              <a
+                                href={work.codeLink}
+                                target="_blank"
+                                rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                <AiFillGithub />
+                              </a>
+                            )}
+                            {!work.projectLink && work.video && (
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  openProjectDetail(work);
+                                  setTimeout(() => toggleVideoPlayback(), 100);
+                                }}
+                                className="video-icon"
+                              >
+                                <FaPlay />
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                        <div className="card-content">
+                          <h3>{work.title}</h3>
+                          <p>{work.summary}</p>
+                        </div>
+                        <div className="card-footer">
+                          <div className="card-tags">
+                            <span>{work.tags[0]}</span>
+                          </div>
+                          <div className="card-year">{work.year}</div>
+                        </div>
+                        <div
+                          className="card-hover-image"
+                          style={{ opacity: hoveredCard === index ? 0.15 : 0 }}
+                        >
+                          <MediaDisplay
+                            img={work.img}
+                            video={work.video}
+                            title={work.title}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                </div>
+
+                {showScrollButtons && (
+                  <button
+                    className="scroll-button right"
+                    onClick={() => scrollProjects("right")}
+                  >
+                    <HiOutlineChevronRight />
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Project Detail Modal */}
