@@ -71,7 +71,7 @@ const Contact = () => {
       <SectionTitle>Contact me</SectionTitle>
       <div className="contact">
         <div className="app__footer-cards">
-          <div 
+          <div
             className="app__footer-card"
             data-aos="fade-right"
             data-aos-delay="100"
@@ -84,7 +84,7 @@ const Contact = () => {
               abdelrhman.contact@gmail.com
             </a>
           </div>
-          <div 
+          <div
             className="app__footer-card"
             data-aos="fade-left"
             data-aos-delay="200"
@@ -131,7 +131,7 @@ const Contact = () => {
             ></textarea>
           </div>
           {isSubmitted ? (
-            <p 
+            <p
               className="contact-success-message"
               data-aos="zoom-in"
               data-aos-delay="100"
